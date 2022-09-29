@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+
+{% block title %}{{super()}}Post A New Stuff {% endblock %}
+{% block category %}{% endblock %}
+
+
+{% block page_content %}
+<div class="post-new-item-div">
+<h1>New free stuff by
+    {% if current_user.is_authenticated %}
+    <strong>{{ current_user.username }}</strong>
+    {%- else %}
+    Anonymous
+    {%- endif %}
+</h1>
+
+<form method="POST" enctype=multipart/form-data novalidate>
+    
+    {{ form.hidden_tag() }}
+    {{ p_form.hidden_tag() }}
+    
+    <div class="mb-3">
+        
+        {{ form.category.label() }}
+        {{ form.category(class='form-control') }}</div>
+
+    <div class="mb-3">
+        
+        {{ form.title.label() }}
+        {{ form.title(class='form-control')}}
+
+        {% if form.title.errors %}
+        {% for error in form.title.errors %}
+        <span class="text-danger">{{ error }}</span><br>
+        {% endfor %}
+        {% endif %}
+      </div>
+
+      <div class="mb-3">
+       
+        {{p_form.photo_one.label()}}
+        {{p_form.photo_one(class="form-control")}}
+
+        {% if p_form.photo_one.errors %}
+        {% for error in p_form.photo_one.errors %}
+        <span class="text-danger">{{ error }}</span><br>
+        {% endfor %}
+        {% endif %}
+      </div>
+
+      <div class="mb-3">
+        
+        {{p_form.photo_two.label()}}
+        {{p_form.photo_two(class="form-control")}}
+
+        {% if p_form.photo_two.errors %}
+        {% for error in p_form.photo_two.errors %}
+        <span class="text-danger">{{ error }}</span><br>
+        {% endfor %}
+        {% endif %}
+      </div>
+
+      <div class="mb-3">
+       
+        {{p_form.photo_three.label()}}
+        {{p_form.photo_three(class="form-control")}}
+
+        {% if p_form.photo_three.errors %}
+        {% for error in p_form.photo_three.errors %}
+        <span class="text-danger">{{ error }}</span><br>
+        {% endfor %}
+        {% endif %}
+      </div>
+
+      <div class="mb-3">
+       
+        {{ form.description.label() }}
+        {{ form.description(class='form-control')}}
+      </div>
+      
+      <button type="submit" class="btn btn-secondary btn-lg button-custom">Submit</button>
+
+
+</form>
+<br>
+
+</div>
+{% endblock %}

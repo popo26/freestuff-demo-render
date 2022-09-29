@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% import "_macros.html" as macros %}
+
+{% block title %}{{super()}} Profile {{user.username}}{% endblock title %}
+
+{% block navbar %}{{ super() }}{% endblock navbar %}
+
+
+{% block category %}{% endblock %}
+{% block page_content %}
+{{ moment.include_moment() }}
+
+
+  <div class="profile-header profile-div">
+
+    <h1>{{ user.username }}</h1>
+    <div class="profile-div2">
+      <table class="table profile-table">
+        <tbody>
+          <tr>
+            <th scope="row">Name</th>
+            <td>{% if user.name %}{{ user.name }}{% endif %}</td>
+          </tr>
+          <tr>
+            <th scope="row">Location</th>
+            <td>{% if user.location %}{{ user.location }}{% endif %}</td>
+          </tr>
+          {% if current_user.is_administrator() %}
+          <tr>
+            <th scope="row">Email</th>
+            <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
+          </tr>
+          {% endif %}
+          <tr>
+            <th scope="row">Bio</th>
+            <td class="profile-bio-td">{% if user.bio %}{{ user.bio }}{% endif %}</td>
+          </tr>
+          <tr>
+            <th scope="row" >Last seen</th>
+            <td>{{ moment(user.last_seen).fromNow() }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+<div class="profile-buttons">
+{% if user == current_user and not user.is_administrator()%}
+<a class="btn btn-default button-custom" href="{{ url_for('.edit_profile') }}">Edit Profile</a>
+<a class="btn btn-success reset-password-button" href="{{ url_for('auth.reset_password') }}">Reset Password</a>
+{% endif %}
+{% if current_user.is_administrator() %}
+<a class="btn btn-danger delete-button" href="{{ url_for('.admin_edit_profile', id=user.id) }}">Edit as Admin</a>
+<a class="btn btn-success reset-password-button" href="{{ url_for('auth.reset_password') }}">Reset Password</a>
+{% endif %}
+</div>
+
+<div class='user-item-list'>
+  <h2>FreeStuff by {{ user.username }}</h2>
+  {% include '_posts.html' %}
+</div>
+
+
+{% endblock %}
+
+
+{% block pagination %}
+{% if pagination %}
+<div class="pagination-div">
+  {{ macros.pagination_widget(pagination, '.index') }}
+</div>
+{% endif %}
+{% endblock %}

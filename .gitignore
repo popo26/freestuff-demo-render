@@ -1,0 +1,14 @@
+__pycache__
+venv
+.env
+*.sqlite
+dev_setup.sh
+*.png
+*.jpg
+*.jpeg
+*.pdf
+.indexes/*
+.pytest_cache
+*.deb
+*.rpm
+*.sha512

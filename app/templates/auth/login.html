@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block title %}{{super()}}Login{% endblock %}
+
+
+{% block category %}{% endblock %}
+{% block page_content %}
+<div class="form-div2">
+<form class='forms' method="POST" novalidate>
+   
+    {{ form.hidden_tag() }}
+
+    <div class="mb-3">
+        {{form.email.label}}
+        {{form.email(class="form-control")}}
+
+        {% if form.email.errors %}
+        {% for error in form.email.errors %}
+        <span class="text-danger">{{ error }}</span><br>
+        {% endfor %}
+        {% endif %}
+      </div>
+
+      <div class="mb-3">
+        {{ form.password.label }}
+        {{ form.password(class='form-control')}}
+
+        {% if form.password.errors %}
+        {% for error in form.password.errors %}
+        <span class="text-danger">{{ error }}</span><br>
+        {% endfor %}
+        {% endif %}
+      </div>
+
+      <div class="mb-3">
+        {{ form.remember_me() }}
+        {{ form.remember_me.label }} 
+      </div>
+      
+      <button type="submit" class="btn btn-secondary btn-lg button-custom">Login</button>
+
+    </form>
+
+    <br>
+    <h3 class="new-user"><a href="{{ url_for('auth.reset_request') }}">Forgot Password?</a></h3>
+
+    <h3 class="new-user">New User? <a href="{{ url_for('auth.register')}}">Register</a></h3>
+</div>
+{% endblock  %}  

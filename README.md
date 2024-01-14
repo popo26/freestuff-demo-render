@@ -2,7 +2,7 @@
 
 ## What this app does:
 FreeStuff is a simple and intuitive app that provides a place to exchange unwanted free stuff.
-[Demo site](https://demo-freestuff.herokuapp.com/)
+[Demo site](https://freestuff-demo.onrender.com/)
 
 ## Technology:
 - Python 3
